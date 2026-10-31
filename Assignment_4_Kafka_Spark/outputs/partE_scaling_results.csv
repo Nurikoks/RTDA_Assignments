@@ -1,0 +1,4 @@
+consumers,events,drain_sec,throughput_eps,per_consumer_events,partitions,avg_consumer_cpu_pct
+1,200000,3.03,66046,200000,"[0, 1, 2]",104.7
+2,200000,2.64,75879,166870 33130,"[0, 1] [2]",65.5
+3,200000,1.8,111357,66869 100001 33130,[1] [0] [2],73.1

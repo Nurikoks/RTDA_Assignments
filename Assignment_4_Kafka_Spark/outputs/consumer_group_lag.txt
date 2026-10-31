@@ -1,0 +1,7 @@
+
+Consumer group 'aitu-analytics' has no active members.
+
+GROUP           TOPIC              PARTITION  CURRENT-OFFSET  LOG-END-OFFSET  LAG             CONSUMER-ID     HOST            CLIENT-ID
+aitu-analytics  aitu.research.jobs 0          3               3               0               -               -               -
+aitu-analytics  aitu.research.jobs 1          3               3               0               -               -               -
+aitu-analytics  aitu.research.jobs 2          4               4               0               -               -               -

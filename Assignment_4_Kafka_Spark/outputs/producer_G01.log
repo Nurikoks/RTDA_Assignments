@@ -1,0 +1,6 @@
+%4|1793363346.386|GETPID|producer-G01#producer-1| [thrd:main]: Failed to acquire idempotence PID from broker localhost:9092/1: Broker: Coordinator load in progress: retrying
+sent E001 key=G01 -> partition 2 offset 0
+sent E003 key=G01 -> partition 2 offset 1
+sent E006 key=G01 -> partition 2 offset 2
+sent E009 key=G01 -> partition 2 offset 3
+done: 4 events, not delivered: 0

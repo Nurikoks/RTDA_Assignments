@@ -1,0 +1,4 @@
+created aitu.research.jobs
+created aitu.research.jobs.dlq
+aitu.research.jobs: partitions=3 leaders=[1, 1, 1] replicas=[1, 1, 1]
+aitu.research.jobs.dlq: partitions=1 leaders=[1] replicas=[1]

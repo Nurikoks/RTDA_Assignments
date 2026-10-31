@@ -1,0 +1,7 @@
+root
+ |-- window: struct (nullable = false)
+ |    |-- start: timestamp (nullable = true)
+ |    |-- end: timestamp (nullable = true)
+ |-- job_type: string (nullable = true)
+ |-- count: long (nullable = false)
+ |-- avg_duration: double (nullable = true)

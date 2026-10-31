@@ -1,0 +1,5 @@
+job_type,completed,failed,avg_duration
+ml,2,1,52.33
+image,3,0,77.67
+text,2,0,20.0
+simulation,1,1,107.5

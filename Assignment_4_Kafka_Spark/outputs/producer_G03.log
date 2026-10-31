@@ -1,0 +1,4 @@
+sent E004 key=G03 -> partition 0 offset 0
+sent E007 key=G03 -> partition 0 offset 1
+sent E010 key=G03 -> partition 0 offset 2
+done: 3 events, not delivered: 0

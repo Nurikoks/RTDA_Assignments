@@ -1,0 +1,31 @@
+assigned partitions: [0, 1, 2]
+recv E001 p2 off0 event_time 14:00:01 -> window 14:00:00, watermark none yet
+recv E003 p2 off1 event_time 14:00:03 -> window 14:00:00, watermark none yet
+recv E006 p2 off2 event_time 14:00:06 -> window 14:00:05, watermark none yet
+recv E009 p2 off3 event_time 14:00:09 -> window 14:00:05, watermark none yet
+recv E002 p1 off0 event_time 14:00:02 -> window 14:00:00, watermark none yet
+recv E005 p1 off1 event_time 14:00:05 -> window 14:00:05, watermark none yet
+recv E008 p1 off2 event_time 14:00:08 -> window 14:00:05, watermark none yet
+recv E004 p0 off0 event_time 14:00:04 -> window 14:00:00, watermark 14:00:02
+recv E007 p0 off1 event_time 14:00:07 -> window 14:00:05, watermark 14:00:05
+  CLOSED window 14:00:00-14:00:05: {'window': '14:00:00-14:00:05', 'events': 'E001 E002 E003 E004', 'count': 4, 'failed': 1, 'failure_rate_pct': 25.0, 'avg_cpu': 66.25}
+recv E010 p0 off2 event_time 14:00:10 -> window 14:00:10, watermark 14:00:06
+  FLUSHED window 14:00:05-14:00:10: {'window': '14:00:05-14:00:10', 'events': 'E005 E006 E007 E008 E009', 'count': 5, 'failed': 1, 'failure_rate_pct': 20.0, 'avg_cpu': 75.2}
+  FLUSHED window 14:00:10-14:00:15: {'window': '14:00:10-14:00:15', 'events': 'E010', 'count': 1, 'failed': 0, 'failure_rate_pct': 0.0, 'avg_cpu': 78.0}
+
+valid events: 10, invalid events sent to DLQ: 0, late events: []
+completed / failed jobs: {'completed': 8, 'failed': 2}
+
+Part B: by job_type
+  ml          completed=2 failed=1 avg_duration=52.33
+  image       completed=3 failed=0 avg_duration=77.67
+  text        completed=2 failed=0 avg_duration=20.0
+  simulation  completed=1 failed=1 avg_duration=107.5
+Part B: average CPU by research group
+  G01  events=4 avg_cpu=68.5
+  G02  events=3 avg_cpu=62.0
+  G03  events=3 avg_cpu=86.33
+Part C: 5-second event-time windows
+  14:00:00-14:00:05  events=[E001 E002 E003 E004] count=4 failure_rate=25.0% avg_cpu=66.25
+  14:00:05-14:00:10  events=[E005 E006 E007 E008 E009] count=5 failure_rate=20.0% avg_cpu=75.2
+  14:00:10-14:00:15  events=[E010] count=1 failure_rate=0.0% avg_cpu=78.0

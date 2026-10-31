@@ -1,0 +1,11 @@
+event_id,timestamp,research_group,job_type,duration_sec,status,cpu_pct
+E001,14:00:01,G01,ml,42,completed,61
+E002,14:00:02,G02,image,75,completed,74
+E003,14:00:03,G01,text,18,completed,38
+E004,14:00:04,G03,simulation,95,failed,92
+E005,14:00:05,G02,ml,51,completed,68
+E006,14:00:06,G01,image,88,completed,81
+E007,14:00:07,G03,ml,64,failed,89
+E008,14:00:08,G02,text,22,completed,44
+E009,14:00:09,G01,simulation,120,completed,94
+E010,14:00:10,G03,image,70,completed,78

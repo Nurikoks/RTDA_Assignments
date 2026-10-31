@@ -1,0 +1,4 @@
+preloaded 200000 events into aitu.research.scaling.0f2c5d in 3.8 s
+{'consumers': 1, 'events': 200000, 'drain_sec': 3.03, 'throughput_eps': 66046, 'per_consumer_events': '200000', 'partitions': '[0, 1, 2]', 'avg_consumer_cpu_pct': 104.7}
+{'consumers': 2, 'events': 200000, 'drain_sec': 2.64, 'throughput_eps': 75879, 'per_consumer_events': '166870 33130', 'partitions': '[0, 1] [2]', 'avg_consumer_cpu_pct': 65.5}
+{'consumers': 3, 'events': 200000, 'drain_sec': 1.8, 'throughput_eps': 111357, 'per_consumer_events': '66869 100001 33130', 'partitions': '[1] [0] [2]', 'avg_consumer_cpu_pct': 73.1}
