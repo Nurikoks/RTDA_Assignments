@@ -20,50 +20,42 @@ Broker config `aitu-server.properties` = Kafka's `server.properties` with
 
 ## Files
 
-| File | Part | What it does |
-|---|---|---|
-| data/research_events.csv | | the 10 given events |
-| stream_common.py | B | topic names, schema check `validate_event()` |
-| create_topic.py | A | creates the 3-partition topic and the DLQ topic |
-| producer.py | B | JSON producer, key = research_group, `--group` runs one producer per group |
-| consumer.py | B, C | consumer group `aitu-analytics`: validation, counts, averages, 5 s event-time windows |
-| spark_streaming_job.py | D | Spark Structured Streaming: window, job_type, count, avg_duration |
-| winfs/aitu/*.java | D | small Hadoop file system class so Spark runs on Windows without winutils.exe |
-| load_test.py | E | throughput / latency / CPU at 10, 100, 500 events/s |
-| scaling_test.py | E | 1, 2, 3 consumers in one group on a preloaded topic |
-| make_figures.py | | figures in `figures/` |
-| outputs/ | | logs and CSV results of the runs |
+| File | What it is |
+|---|---|
+| assignment4_kafka_spark.ipynb | the whole assignment: topics (A), producers and consumer (B), windows (C), Spark (D), load test results (E), figures |
+| load_test.py | Part E load test and consumer-group scaling test, plus the schema check `validate_event()` |
+| start_kafka.ps1 | starts the Kafka broker, `-Reset` gives an empty broker |
+| winfs/aitu/*.java | small Hadoop file system class so Spark runs on Windows without winutils.exe |
+| data/research_events.csv | the 10 given events |
+| outputs/ | result tables (CSV) and load test logs |
+| figures/ | architecture diagram, window chart, load chart |
+| Assignment_4_Report_completed.docx | the completed report |
+
+`load_test.py` is a separate file because the tests start producers and consumers in
+separate processes, and on Windows a process can not run a function defined in a notebook cell.
 
 ## How to run
 
 ```powershell
 pip install -r requirements.txt
 .\start_kafka.ps1 -Reset          # in its own terminal, keep it open
-python create_topic.py
-# three producers at the same time, one per research group
-Start-Process python "producer.py --group G01 --delay 1"
-Start-Process python "producer.py --group G02 --delay 1"
-Start-Process python "producer.py --group G03 --delay 1"
-python consumer.py --from-beginning
-python spark_streaming_job.py
+jupyter notebook assignment4_kafka_spark.ipynb    # Run All
+```
+
+The notebook needs an empty broker, because topics can not be deleted on Windows.
+Part E shows the saved results. To measure again set `RUN_LOAD_TESTS = True`, or run:
+
+```powershell
 python load_test.py --rates 10 100 500 --duration 20
 python load_test.py --rates 10 100 500 --duration 20 --batch-timeout 0.05
 python load_test.py --rates 0 --max-events 50000
-python scaling_test.py --events 200000 --consumers 1 2 3
-python make_figures.py
-```
-
-Validation test (3 broken events go to the DLQ):
-
-```powershell
-python create_topic.py --topic aitu.research.jobs.validation-test
-python producer.py --topic aitu.research.jobs.validation-test --inject-invalid --delay 0
-python consumer.py --topic aitu.research.jobs.validation-test --group-id validation-test --from-beginning
+python load_test.py --rates 500 0 --duration 20 --max-events 20000 --batch-size 1 --batch-timeout 0.05 --commit message
+python load_test.py --scaling --events 200000 --consumers 1 2 3
 ```
 
 ## Windows problems I had
 
 1. Kafka `.bat` scripts fail with "The input line is too long". Kafka is started with `java -cp libs\*` directly (`start_kafka.ps1`).
 2. Deleting a topic crashes the broker on Windows (`AccessDeniedException` when it renames the log folder). Topics are never deleted, a clean run uses `start_kafka.ps1 -Reset`.
-3. With the default `auto.create.topics.enable=true` the producers created the topic with 1 partition before `create_topic.py` ran. Auto creation is now disabled.
+3. With the default `auto.create.topics.enable=true` the producers created the topic with 1 partition before it was created with 3. Auto creation is now disabled.
 4. Spark needs `winutils.exe` for chmod, readlink and directory listing. Instead of a third-party binary, `winfs/aitu/NoPermLocalFileSystem.java` skips these calls (compiled automatically with `javac`), and the Kafka connector jars are put on the class path instead of `spark.jars.packages`.

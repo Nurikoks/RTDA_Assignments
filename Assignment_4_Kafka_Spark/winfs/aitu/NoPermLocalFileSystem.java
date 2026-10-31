@@ -10,21 +10,13 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.fs.RawLocalFileSystem;
 import org.apache.hadoop.fs.permission.FsPermission;
 
-/**
- * Local file system for Spark on Windows without winutils.exe and hadoop.dll.
- * Hadoop uses winutils.exe for chmod / ls and hadoop.dll for access checks.
- * Neither is installed here, so permissions are skipped and files are listed
- * with plain java.io.File, symlinks are not resolved. On NTFS these POSIX permissions have no effect.
- */
 public class NoPermLocalFileSystem extends RawLocalFileSystem {
     @Override
     public void setPermission(Path p, FsPermission permission) throws IOException {
-        // skipped on purpose
     }
 
     @Override
     public void setOwner(Path p, String username, String groupname) throws IOException {
-        // skipped on purpose
     }
 
     @Override
@@ -41,7 +33,6 @@ public class NoPermLocalFileSystem extends RawLocalFileSystem {
 
     @Override
     public FileStatus getFileLinkStatus(Path f) throws IOException {
-        // the default version calls "winutils readlink", symlinks are not used here
         return getFileStatus(f);
     }
 
@@ -63,7 +54,6 @@ public class NoPermLocalFileSystem extends RawLocalFileSystem {
             try {
                 out.add(getFileStatus(new Path(f, name)));
             } catch (FileNotFoundException e) {
-                // deleted between list() and stat, ignore
             }
         }
         return out.toArray(new FileStatus[0]);

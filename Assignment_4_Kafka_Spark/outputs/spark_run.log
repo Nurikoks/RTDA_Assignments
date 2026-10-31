@@ -1,31 +1,0 @@
-WARNING: Using incubator modules: jdk.incubator.vector
-26/10/30 17:38:00 WARN Shell: Did not find winutils.exe: java.io.FileNotFoundException: java.io.FileNotFoundException: HADOOP_HOME and hadoop.home.dir are unset. -see https://cwiki.apache.org/confluence/display/HADOOP2/WindowsProblems
-Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
-Setting default log level to "WARN".
-To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
-26/10/30 17:38:03 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
-26/10/30 17:38:14 WARN ResolveWriteToStream: spark.sql.adaptive.enabled is not supported in streaming DataFrames/Datasets and will be disabled.
-26/10/30 17:38:14 WARN MicroBatchExecution: Disabling AQE since AQE is not supported in stateful workloads.
-[Stage 0:>                                                          (0 + 2) / 3][Stage 0:>                                                          (0 + 3) / 3][Stage 0:=======================================>                   (2 + 1) / 3]                                                                                root
- |-- window: struct (nullable = false)
- |    |-- start: timestamp (nullable = true)
- |    |-- end: timestamp (nullable = true)
- |-- job_type: string (nullable = true)
- |-- count: long (nullable = false)
- |-- avg_duration: double (nullable = true)
-
---- micro-batch 0: 9 rows
-window_start window_end   job_type  count  avg_duration
-    14:00:00   14:00:05      image      1          75.0
-    14:00:00   14:00:05         ml      1          42.0
-    14:00:00   14:00:05 simulation      1          95.0
-    14:00:00   14:00:05       text      1          18.0
-    14:00:05   14:00:10      image      1          88.0
-    14:00:05   14:00:10         ml      2          57.5
-    14:00:05   14:00:10 simulation      1         120.0
-    14:00:05   14:00:10       text      1          22.0
-    14:00:10   14:00:15      image      1          70.0
-last progress: {'batchId': 0, 'numInputRows': 10, 'durationMs': {'addBatch': 6132, 'commitOffsets': 14, 'getBatch': 21, 'latestOffset': 837, 'queryPlanning': 1093, 'triggerExecution': 8158, 'walCommit': 25}}
-Успешно: Процесс, с идентификатором 9460, дочерний процесса 412, был завершен.
-Успешно: Процесс, с идентификатором 412, дочерний процесса 15652, был завершен.
-Успешно: Процесс, с идентификатором 15652, дочерний процесса 6964, был завершен.
